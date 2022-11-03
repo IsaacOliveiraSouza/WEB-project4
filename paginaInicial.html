@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function tabela(){
+            var url = "http://localhost:8080/mostrarSalas"
+            var requi = new XMLHttpRequest()
+            requi.open("GET", url, false)
+            requi.send()
+            var res = JSON.parse(requi.responseText)
+            var div = document.getElementById("salas")
+            var info = res.info
+            info.map((json, indice)=>{
+                div.innerHTML +="<h3>"+json.nome + "<br>" + "<hr>"+"</h3>"
+                div.innerHTML +="<a href=http://localhost:8080/Sala/"+ json.id+"><button>ir pra sala</button></a>"
+            })
+
+            /**/
+        }
+        /*req.onreadystatechange = function(){
+                if(req.readyState == 4 && req.status == 200){
+                    document.getElementById('salas').innerHTML = req.responseText
+                }
+                req.open('GET', '/salas', true)
+                req.send()
+                var objDiv = document.getElementById("salas");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }
+            setInterval(function(){ajax()}, 1000)*/
+    </script>
+
+</head>
+<body onload="tabela()">  
+    
+    <h3>Bem-Vindo</h3>
+    <form action="" method="get">
+        <input type="text" name="pesquisar" id="pesquisar" placeholder="Pesquisar sala">
+        <input type="button" name="" id="" value="Pesquisar">
+    </form>
+    <div id="salas"></div>
+    <br><br>
+
+    <form action="/criar" method="get">
+        <h2>Criar uma Sala</h2>
+        <input type="text" name="nomesala" id="nomesala">
+        <input type="submit" name="criar" id="criar" value="Criar Sala">
+    </form>
+</body>
+</html>
